@@ -33,7 +33,7 @@ public class UIController : MonoBehaviour
     public GameObject storeWindow;
     public GameObject configWindow;
     public GameObject rankingWindow;
-    public GameObject creditsWindow;
+    public ModalController creditsWindow;
     public GameObject pauseWindow; 
     public GameObject pauseButon;
     public Image CD;
@@ -190,7 +190,7 @@ public class UIController : MonoBehaviour
     {
         configWindow.SetActive(false);
         rankingWindow.SetActive(false);
-        creditsWindow.SetActive(false);
+        creditsWindow.Hide();
         storeWindow.SetActive(!storeWindow.activeSelf);
     }
 
@@ -198,7 +198,7 @@ public class UIController : MonoBehaviour
     {
         storeWindow.SetActive(false);
         rankingWindow.SetActive(false);
-        creditsWindow.SetActive(false);
+        creditsWindow.Hide();
         configWindow.SetActive(!configWindow.activeSelf); 
     }
 
@@ -206,7 +206,7 @@ public class UIController : MonoBehaviour
     {
         storeWindow.SetActive(false);
         configWindow.SetActive(false);
-        creditsWindow.SetActive(false);
+        creditsWindow.Hide();
         rankingWindow.SetActive(!rankingWindow.activeSelf);
     }
 
@@ -215,7 +215,11 @@ public class UIController : MonoBehaviour
         storeWindow.SetActive(false);
         configWindow.SetActive(false);
         rankingWindow.SetActive(false);
-        creditsWindow.SetActive(!creditsWindow.activeSelf);
+        
+        if (creditsWindow.gameObject.activeSelf)
+            creditsWindow.Hide();
+        else
+            creditsWindow.gameObject.SetActive(true);
     }
 
 
