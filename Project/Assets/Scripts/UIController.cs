@@ -30,7 +30,7 @@ public class UIController : MonoBehaviour
     [Header("In Game Hud")]
     public ModalController gameOverWindow;
     public GameObject titleWindow;
-    public GameObject storeWindow;
+    public ModalController storeWindow;
     public ModalController configWindow;
     public GameObject rankingWindow;
     public ModalController creditsWindow;
@@ -191,24 +191,28 @@ public class UIController : MonoBehaviour
         configWindow.Hide();
         rankingWindow.SetActive(false);
         creditsWindow.Hide();
-        storeWindow.SetActive(!storeWindow.activeSelf);
+
+        if (storeWindow.gameObject.activeSelf)
+            storeWindow.Hide();
+        else
+            storeWindow.Show();
     }
 
     public void openConfig()
     {
-        storeWindow.SetActive(false);
+        storeWindow.Hide();
         rankingWindow.SetActive(false);
         creditsWindow.Hide();
 
           if (configWindow.gameObject.activeSelf)
             configWindow.Hide();
         else
-            configWindow.gameObject.SetActive(true);
+            configWindow.Show();
     }
 
     public void rankingConfig()
     {
-        storeWindow.SetActive(false);
+        storeWindow.Hide();
         configWindow.Hide();
         creditsWindow.Hide();
         rankingWindow.SetActive(!rankingWindow.activeSelf);
@@ -216,14 +220,14 @@ public class UIController : MonoBehaviour
 
     public void CreditsConfig()
     {
-        storeWindow.SetActive(false);
+        storeWindow.Hide();
         configWindow.Hide();
         rankingWindow.SetActive(false);
         
         if (creditsWindow.gameObject.activeSelf)
             creditsWindow.Hide();
         else
-            creditsWindow.gameObject.SetActive(true);
+            creditsWindow.Show();
     }
 
 
