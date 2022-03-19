@@ -28,10 +28,10 @@ public class UIController : MonoBehaviour
     public List<Transform> hearts = new List<Transform>();
 
     [Header("In Game Hud")]
-    public GameObject gameOverWindow;
+    public ModalController gameOverWindow;
     public GameObject titleWindow;
     public GameObject storeWindow;
-    public GameObject configWindow;
+    public ModalController configWindow;
     public GameObject rankingWindow;
     public ModalController creditsWindow;
     public GameObject pauseWindow; 
@@ -97,7 +97,7 @@ public class UIController : MonoBehaviour
         emoticons.transform.GetChild(2).gameObject.SetActive(false);
         newOBJ.SetActive(false);
         titleWindow.SetActive(true);
-        gameOverWindow.SetActive(false);       
+        gameOverWindow.Hide();       
         resetValues();
         PlayerController.getInstance().onDied += Player_OnDied;
         PlayerController.getInstance().onStart += Player_OnStart;
@@ -188,7 +188,7 @@ public class UIController : MonoBehaviour
 
     public void openShop()
     {
-        configWindow.SetActive(false);
+        configWindow.Hide();
         rankingWindow.SetActive(false);
         creditsWindow.Hide();
         storeWindow.SetActive(!storeWindow.activeSelf);
@@ -199,13 +199,17 @@ public class UIController : MonoBehaviour
         storeWindow.SetActive(false);
         rankingWindow.SetActive(false);
         creditsWindow.Hide();
-        configWindow.SetActive(!configWindow.activeSelf); 
+
+          if (configWindow.gameObject.activeSelf)
+            configWindow.Hide();
+        else
+            configWindow.gameObject.SetActive(true);
     }
 
     public void rankingConfig()
     {
         storeWindow.SetActive(false);
-        configWindow.SetActive(false);
+        configWindow.Hide();
         creditsWindow.Hide();
         rankingWindow.SetActive(!rankingWindow.activeSelf);
     }
@@ -213,7 +217,7 @@ public class UIController : MonoBehaviour
     public void CreditsConfig()
     {
         storeWindow.SetActive(false);
-        configWindow.SetActive(false);
+        configWindow.Hide();
         rankingWindow.SetActive(false);
         
         if (creditsWindow.gameObject.activeSelf)
@@ -230,12 +234,12 @@ public class UIController : MonoBehaviour
 
     public void pause()
     {
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
     }
 
     public void unPause()
     {
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
     }
 
     public void buy()

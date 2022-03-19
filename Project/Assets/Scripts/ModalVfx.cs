@@ -9,6 +9,7 @@ public class ModalVfx : MonoBehaviour
    
    public void Show()
    {
+      RectTransform.localScale = new Vector3(.9f,.9f,.9f);
       CanvasGroup.alpha = 0;
       Sequence seq = DOTween.Sequence();
       seq.Insert(0, RectTransform.DOScale(1f, .2f)).SetEase(Ease.InBack);

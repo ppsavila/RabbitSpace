@@ -7,8 +7,8 @@ public class ExplosionController : MonoBehaviour
   public void setTime()
   {
 
-        UIController.GetInstance().gameOverWindow.SetActive(true);
-        Time.timeScale = 0;
+        UIController.GetInstance().gameOverWindow.Show();
+        //Time.timeScale = 0;
         this.gameObject.SetActive(false);
         
   }

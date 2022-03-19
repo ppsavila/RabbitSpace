@@ -22,4 +22,10 @@ public class ModalController : MonoBehaviour
     {
         modalVfx.Hide();
     }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+        modalVfx.Show();
+    }
 }
