@@ -5,6 +5,7 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using TMPro;
 
 [System.Serializable]
 public struct Skin
@@ -20,11 +21,11 @@ public class UIController : MonoBehaviour
     static UIController instance;
 
     [Header("In Game Hud")]
-    public Text points;
-    public Text highScore;
-    public Text coins;
-    public Text coins1;
-    public Text endPoints;
+    public TextMeshProUGUI points;
+    public TextMeshProUGUI highScore;
+    public TextMeshProUGUI coins;
+    public TextMeshProUGUI coins1;
+    public TextMeshProUGUI endPoints;
     public List<Transform> hearts = new List<Transform>();
 
     [Header("In Game Hud")]
@@ -53,7 +54,7 @@ public class UIController : MonoBehaviour
     //public List<Skin> skins = new List<Skin>();
     public Skin[] skins;
     public Image acualSkin;
-    public Text actualText;
+    public TextMeshProUGUI actualText;
     public GameObject buyed;
     public GameObject select;
     int index;

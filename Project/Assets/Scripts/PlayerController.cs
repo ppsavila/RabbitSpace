@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
 
                 if (TapCount >= 2 && canUsePU)
                 {
-                    //activatePU();
+                    activatePU();
                     NewTime = 0.0f;
                     TapCount = 0;
                 }
