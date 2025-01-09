@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,7 +32,6 @@ public class Level : MonoBehaviour
     WaitForSeconds spawnTimeMax;
     WaitForSeconds spawnCoinTimeMax;
     WaitForSeconds spawnRabbitTimeMax;
-    float gapSize = 70f;
     int obstacleQnt;
     public int obstaclePassed;
     State state;
@@ -88,10 +88,6 @@ public class Level : MonoBehaviour
             
             yield return spawnTimeMax;
             setDifficulty(GetDifficulty()); 
-            if(GetDifficulty() == Difficulty.Hard || GetDifficulty() == Difficulty.Impossible) 
-                ObstacleSpawn();
-
-           
             ObstacleSpawn(); 
         }
     }
@@ -122,7 +118,7 @@ public class Level : MonoBehaviour
             float size = UnityEngine.Random.Range(minSize, maxSize);
             float posX = UnityEngine.Random.Range(minPosX, maxPosX);
             float posY = UnityEngine.Random.Range(minPosX, maxPosX);
-            ObjectMovement auxMeteoro = obstacles.Find(x => !x.gameObject.activeSelf);
+            ObjectMovement auxMeteoro = obstacles.First(x => !x.gameObject.activeSelf);
             auxMeteoro.setNewPos(120f-posX,posY);
             auxMeteoro.setSpeed(SpeedMov);
             auxMeteoro.gameObject.SetActive(true);
@@ -133,7 +129,7 @@ public class Level : MonoBehaviour
             float size = UnityEngine.Random.Range(minSize, maxSize);
             float posX = UnityEngine.Random.Range(minPosX, maxPosX);
             float posY = UnityEngine.Random.Range(minPosX, maxPosX);
-            ObjectMovement auxMeteoro = coins.Find(x => !x.gameObject.activeSelf);
+            ObjectMovement auxMeteoro = coins.First(x => !x.gameObject.activeSelf);
             auxMeteoro.setNewPos(120f - posX, posY);
             auxMeteoro.setSpeed(SpeedMov);
             auxMeteoro.gameObject.SetActive(true);
@@ -175,15 +171,14 @@ public class Level : MonoBehaviour
         {
             case Difficulty.Easy:
                 
-                gapSize = 40;
+
                 spawnTimer = 1.5f;
                 SpeedMov = 30f;
                 spawnTimeMax = new WaitForSeconds(spawnTimer);
                 break;
             case Difficulty.Medium:
                
-                gapSize = 35;
-                spawnTimer = 1.2f;
+                spawnTimer = .9f;
                 SpeedMov = 40f;
                 spawnTimeMax = new WaitForSeconds(spawnTimer);
                 break;
@@ -197,8 +192,7 @@ public class Level : MonoBehaviour
                 //}
                 //Camera.main.backgroundColor = Color.white;
 
-                gapSize = 35;
-                spawnTimer = 1f;
+                spawnTimer = .54f;
                 SpeedMov = 50f;
                 spawnTimeMax = new WaitForSeconds(spawnTimer);
                 break;
@@ -213,8 +207,7 @@ public class Level : MonoBehaviour
                 //}
                 //Camera.main.backgroundColor = Color.black;
 
-                gapSize = 30;
-                spawnTimer = .8f;
+                spawnTimer = .27f;
                 SpeedMov = 55f;
                 spawnTimeMax = new WaitForSeconds(spawnTimer);
                 break;
@@ -230,8 +223,7 @@ public class Level : MonoBehaviour
                 //}
                 //Camera.main.backgroundColor = Color.white;
 
-                gapSize = 25;
-                spawnTimer = .8f;
+                spawnTimer = .16f;
                 SpeedMov = 60f;
                 spawnTimeMax = new WaitForSeconds(spawnTimer);
                 break;
@@ -247,8 +239,7 @@ public class Level : MonoBehaviour
                 //}
                 //Camera.main.backgroundColor = Color.black;
 
-                gapSize = 25;
-                spawnTimer = .8f;
+                spawnTimer = .16f;
                 SpeedMov = 65f;
                 spawnTimeMax = new WaitForSeconds(spawnTimer);
                 break;
@@ -259,33 +250,19 @@ public class Level : MonoBehaviour
     Difficulty GetDifficulty()
     {
 
-        if (obstaclePassed > 200)
+        switch (obstaclePassed)
         {
-
-            return Difficulty.Max;
+            case > 200:
+                return Difficulty.Max;
+            case > 150:
+                return Difficulty.Insane;
+            case > 100:
+                return Difficulty.Impossible;
+            case > 50:
+                return Difficulty.Hard;
+            case > 20:
+                return Difficulty.Medium;
         }
-        else if(obstaclePassed > 150)
-        {
-
-            return Difficulty.Insane;
-        }
-        else if (obstaclePassed > 100)
-        {
-           
-            return Difficulty.Impossible;
-        }
-        else if (obstaclePassed > 50)
-        {
-            
-            return Difficulty.Hard;
-        }
-        else if (obstaclePassed > 20)
-        {
-         
-            return Difficulty.Medium;
-        }
-        
-    
         return Difficulty.Easy;
     }
 
